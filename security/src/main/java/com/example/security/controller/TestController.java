@@ -1,5 +1,6 @@
 package com.example.security.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,8 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public String index() {
         return "index security";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String indexAdmin() {
+        return "admin security";
     }
 
     @GetMapping("/about-us")
@@ -30,5 +38,11 @@ public class TestController {
     @GetMapping("/transfer")
     public String transfer() {
         return "transfer security";
+    }
+
+    @GetMapping("/get-balance")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getBalance() {
+        return "get balance security";
     }
 }
